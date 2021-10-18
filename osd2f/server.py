@@ -26,11 +26,11 @@ async def start_database():
     print(config)
     print(app)
     print(app.config)
-    print(app.config.MODE)
     print("ENVironment" + app.env)
+    print("Mode" + app.mode)
     print("DBURL" + app.config['DB_URL'])
 
-    selected_config: config.Config = getattr(config, app.config.MODE)()
+    selected_config: config.Config = getattr(config, app.mode)()
     app.config.from_object(selected_config)
     logger.debug(f"DB URL: {app.config['DB_URL']}")
     await database.initialize_database(app.config["DB_URL"])
