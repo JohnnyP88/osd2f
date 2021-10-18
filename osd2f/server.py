@@ -2,6 +2,7 @@ import csv
 import io
 import json
 import typing
+import os as _os
 
 from osd2f import config, database, security, utils
 from osd2f.definitions import Submission, SubmissionList
@@ -16,9 +17,11 @@ from quart.wrappers.response import Response
 
 from .anonymizers import anonymize_submission
 from .logger import logger
+MODE: str = _os.environ.get("OSD2F_MODE", "production")
 
 app = Quart(__name__)
-app.config.update({'ENV': 'Development', })
+selected_config: config.Config = getattr(config, MODE)()
+app.config.from_object(selected_config)
 
 
 @app.before_serving
@@ -28,10 +31,7 @@ async def start_database():
     print(app)
     print(app.config)
     print("ENVironment" + app.env)
-    print("DBURL" + app.config['DB_URL'])
 
-    selected_config: config.Config = getattr(config, app.env)()
-    app.config.from_object(selected_config)
     logger.debug(f"DB URL: {app.config['DB_URL']}")
     await database.initialize_database(app.config["DB_URL"])
     app.logQueue = database.add_database_logging()
