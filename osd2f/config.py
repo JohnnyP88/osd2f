@@ -13,7 +13,7 @@ class Config:
     PORT: int = 5000
     SECRET_KEY: _typing.Optional[str] = None
     DATA_PASSWORD: str = _os.environ.get("OSD2F_DATA_PASSWORD", "")
-    ENV: str = _os.environ.get("OSD2F_MODE", "production")
+    MODE: str = _os.environ.get("OSD2F_MODE", "production")
     DB_URL = "sqlite://:memory:"
 
     # Allow for BIG submissions 4*16mb for
