@@ -22,6 +22,12 @@ app = Quart(__name__)
 
 @app.before_serving
 async def start_database():
+    print("in start DB")
+    print(config)
+    print(app)
+    print(app.config)
+    print(app.env)
+    print(app.config['DB_URL'])
     logger.debug(f"DB URL: {app.config['DB_URL']}")
     await database.initialize_database(app.config["DB_URL"])
     app.logQueue = database.add_database_logging()
