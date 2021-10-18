@@ -18,6 +18,7 @@ from .anonymizers import anonymize_submission
 from .logger import logger
 
 app = Quart(__name__)
+app.config.update({'ENV': 'Development', })
 
 
 @app.before_serving
