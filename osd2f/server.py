@@ -262,7 +262,10 @@ def create_app(
 
     app.config.from_object(selected_config)
     app.env = mode.lower()
-
+    print("inCreate")
+    print(app.config)
+    print(app.env)
+    print(mode)
     # Check to make sure the application is never in production with a vacant key
     in_production_mode = mode == "Production"
     key_is_set = app.config["SECRET_KEY"] is not None
