@@ -26,7 +26,6 @@ async def start_database():
     print(config)
     print(app)
     print(app.config)
-    print("mode: " + mode)
     print("ENVironment" + app.env)
     print("DBURL" + app.config['DB_URL'])
 
